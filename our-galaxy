@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Наша галактика ❤️</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;display:grid;place-items:center;
+ padding:20px;color:white;text-align:center;
+ font-family:Arial,sans-serif;
+ background:radial-gradient(circle at 50% 30%,#38206e,#100b2d 55%,#030615);
+ overflow:hidden
+}
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;
+ background-image:radial-gradient(white 1px,transparent 1px);
+ background-size:37px 37px;opacity:.35
+}
+main{
+ position:relative;background:#17102dcc;
+ border:1px solid #8067b8;border-radius:25px;
+ padding:30px 22px;max-width:450px;width:100%;
+ box-shadow:0 0 45px #7850c955
+}
+h1{color:#ffc5eb}
+.heart{font-size:75px;animation:pulse 1.8s infinite}
+@keyframes pulse{50%{transform:scale(1.15)}}
+button{
+ border:0;border-radius:30px;padding:14px 25px;
+ margin:8px;font-size:17px;cursor:pointer
+}
+.yes{background:#ed79c5;color:white}
+.no{background:#45405e;color:white}
+.hidden{display:none}
+input{
+ padding:12px;border-radius:12px;border:1px solid #aa8bdc;
+ background:#21183d;color:white;font-size:18px;width:130px;text-align:center
+}
+</style>
+</head>
+<body>
+<main>
+<section id="login">
+ <div class="heart">🌌</div>
+ <h1>Наша маленькая галактика</h1>
+ <p>У меня для тебя маленькое приключение ❤️</p>
+ <input id="password" placeholder="Пароль" maxlength="4">
+ <br><button class="yes" onclick="enter()">Войти ✨</button>
+ <p id="error"></p>
+</section>
+
+<section id="quest" class="hidden">
+ <div class="heart">⭐</div>
+ <h1 id="question"></h1>
+ <p id="progress"></p>
+ <button class="yes" onclick="answer()">Да ❤️</button>
+ <button class="no" onclick="answer()">Нет</button>
+</section>
+
+<section id="final" class="hidden">
+ <div class="heart">💗</div>
+ <h1>Я долго не решался это сказать...</h1>
+ <p>Но больше не хочу скрывать. Ты стала для меня очень особенным человеком. Ты мне нравишься. 💗</p>
+ <h2>Может, попробуем быть вместе? 💗</h2>
+ <button class="yes" onclick="show('yesEnd')">Да ❤️</button>
+ <button class="no" onclick="show('noEnd')">Нет</button>
+</section>
+
+<section id="yesEnd" class="hidden">
+ <div class="heart">💖</div>
+ <h1>Ура! ✨</h1>
+ <p>Ты сделала этот день особенным. Спасибо тебе! ❤️</p>
+</section>
+
+<section id="noEnd" class="hidden">
+ <div class="heart">🌟</div>
+ <h1>Спасибо за честность</h1>
+ <p>Я рад, что ты прошла этот маленький квест. Я уважаю твой ответ. ❤️</p>
+</section>
+</main>
+
+<script>
+const questions=[
+ "Ты самая лучшая?",
+ "Ты прекрасная?",
+ "Ты заслуживаешь счастья?",
+ "Ты самая красивая?"
+];
+let current=0;
+function show(id){
+ document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));
+ document.getElementById(id).classList.remove("hidden");
+}
+function enter(){
+ if(document.getElementById("password").value==="1212"){
+  show("quest");render();
+ }else{
+  document.getElementById("error").textContent="Попробуй ещё раз ❤️";
+ }
+}
+function render(){
+ document.getElementById("question").textContent=questions[current];
+ document.getElementById("progress").textContent=
+ "Вопрос "+(current+1)+" из "+questions.length;
+}
+function answer(){
+ current++;
+ if(current<questions.length)render();
+ else show("final");
+}
+</script>
+</body>
+</html>
+    
